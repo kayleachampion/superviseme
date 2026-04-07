@@ -14,16 +14,8 @@ A React-based tool for exploring how many students can be served by how many fac
   - Points per faculty
   - Total students
   - Over-capacity warning
-- Light, metallic, ADA-compliant interface
-- Clear instructions included at the top
 
----
-
-## Screenshots
-
-*(Optional: Add screenshots of the app interface here)*
-
----
+--
 
 ## Getting Started
 
@@ -51,7 +43,7 @@ npm install
 #### In Github Codespaces
 
 1. Use the green 'open in codespaces' selector in the right hand corner and launch
-2. npm install your dependencies
+2. If needed, npm install your dependencies
 3. npm start
 
 ### Usage
@@ -65,11 +57,11 @@ Adjust the sliders or click the < and > buttons to set how many students are ser
 Shows total points, points per faculty, and total students served.
 Over-capacity warning appears if the points per faculty exceed capacity.
 
-###License
+### License
 
 MIT License
 
-###Notes
+### Notes
 Capacity is measured per faculty member per year.
 Setting faculty to 1 lets you calculate individual microcredits.
 Default values: 15 faculty, 5 credits per course, 1 capacity per faculty member per year.
