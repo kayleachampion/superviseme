@@ -25,26 +25,14 @@ A React-based tool for exploring how many students can be served by how many fac
 - npm (comes with Node.js)
 - Recommended: GitHub Codespaces for zero-setup experience
 
-### Clone the Repository
-
-```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
-```
-
-### Install Dependencies
-
-```bash
-npm install
-```
-
 ### Launching the app
 
 #### In Github Codespaces
 
 1. Use the green 'open in codespaces' selector in the right hand corner and launch
-2. If needed, npm install your dependencies
-3. npm start
+2. cd supervisor-optimizer
+3. npm install
+4. npm start
 
 ### Usage
 1.  Number of Faculty
