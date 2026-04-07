@@ -31,8 +31,9 @@ A React-based tool for exploring how many students can be served by how many fac
 
 1. Use the green 'open in codespaces' selector in the right hand corner and launch
 2. cd supervisor-optimizer
-3. npm install
-4. npm start
+3. npm install (to get dependencies)
+4. npm run dev (I'm lazy)
+5. Visit the url it generates for you
 
 ### Usage
 1.  Number of Faculty: 
