@@ -35,13 +35,13 @@ A React-based tool for exploring how many students can be served by how many fac
 4. npm start
 
 ### Usage
-1.  Number of Faculty
+1.  Number of Faculty: 
 Set how many faculty members are available. Use the slider at the top right of the main interface.
-2. Credit per Course
+2. Credit per Course: 
 Set the credit value (1–10) for each course.
-3. Number of Students
+3. Number of Students: 
 Adjust the sliders or click the < and > buttons to set how many students are served per course.
-4. Summary Panel
+4. Summary Panel: 
 Shows total points, points per faculty, and total students served.
 Over-capacity warning appears if the points per faculty exceed capacity.
 
