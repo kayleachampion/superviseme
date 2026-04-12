@@ -10,6 +10,8 @@ const COURSES = [
   { id: "CSS397", label: "CSS397", ppc: 1 / 150 },
   { id: "CSS495", label: "CSS495", ppc: 1 / 150 },
   { id: "CSS497INT", label: "CSS497INT", ppc: 1 / 150 },
+  { id: "CSS595", label: "CSS595", ppc: 1/52},
+  { id: "CSS700", label: "CSS700", ppc: 1/52}
 ];
 
 export default function App() {
