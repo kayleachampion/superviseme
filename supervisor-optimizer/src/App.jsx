@@ -45,7 +45,7 @@ export default function App() {
     background: "#f8f9fa",
     border: "1px solid #c0c0c0",
     borderRadius: 10,
-    padding: 10
+    padding: 12
   };
 
   const inputStyle = {
