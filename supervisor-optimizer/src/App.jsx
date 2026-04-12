@@ -10,10 +10,10 @@ const COURSES = [
   { id: "397", label: "CSS397", ppc: 1 / 150 },
   { id: "495", label: "CSS495", ppc: 1 / 150 },
   { id: "497INT", label: "497INT", ppc: 1 / 150 },
-  { id: "595", label: "CSS595", ppc: 1/50},
-  { id: "601", label: "CSS601", ppc: 1/150},
-  { id: "600", label: "CSS600", ppc: 1/100},
-  { id: "700", label: "CSS700", ppc: 1/50}
+  { id: "595", label: "CSS595", ppc: 1 / 50 },
+  { id: "601", label: "CSS601", ppc: 1 / 150 },
+  { id: "600", label: "CSS600", ppc: 1 / 100 },
+  { id: "700", label: "CSS700", ppc: 1 / 50 }
 ];
 
 export default function App() {
@@ -32,8 +32,33 @@ export default function App() {
     });
 
     const totalPoints = rows.reduce((s, r) => s + r.points, 0);
-    const totalStudents = rows.reduce((s, r) => s + r.students, 0);
-    return { rows, totalPoints, totalStudents, perSup: totalPoints / supervisors };
+
+    // NEW: split grad vs undergrad
+    const totals = rows.reduce(
+      (acc, r) => {
+        const firstDigit = parseInt(r.id[0], 10);
+
+        if (firstDigit >= 5) {
+          acc.grad += r.students;
+        } else {
+          acc.undergrad += r.students;
+        }
+
+        return acc;
+      },
+      { grad: 0, undergrad: 0 }
+    );
+
+    const grandTotalStudents = totals.grad + totals.undergrad;
+
+    return {
+      rows,
+      totalPoints,
+      totalStudents: grandTotalStudents,
+      gradStudents: totals.grad,
+      undergradStudents: totals.undergrad,
+      perSup: totalPoints / supervisors
+    };
   }, [courses, supervisors]);
 
   const updateStudents = (id, value) => {
@@ -67,7 +92,9 @@ export default function App() {
 
       {/* INSTRUCTIONS */}
       <div style={instructionsStyle}>
-        <div style={{ fontSize: 20, fontWeight: "bold", marginBottom: 6 }}>Faculty Microcredit Calculator</div>
+        <div style={{ fontSize: 20, fontWeight: "bold", marginBottom: 6 }}>
+          Faculty Microcredit Calculator
+        </div>
         <div style={{ fontSize: 14, textAlign: "left" }}>
           This calculator allows you to explore how many students can be served by how many faculty, for each of our courses. Set number of faculty to 1 if you want to calculate your personal microcredits. A capacity of 1 is equivalent to 1 course release.
         </div>
@@ -80,10 +107,18 @@ export default function App() {
           <h3>Summary</h3>
           <div>Total Points: {computed.totalPoints.toFixed(3)}</div>
           <div>Per Faculty: {computed.perSup.toFixed(3)}</div>
-          {computed.perSup > capacityPerSup && <div style={{ color: "#b00020" }}>Over capacity</div>}
+          {computed.perSup > capacityPerSup && (
+            <div style={{ color: "#b00020" }}>Over capacity</div>
+          )}
 
           <h4>Capacity per Faculty Member per Year</h4>
-          <input type="number" step="0.1" value={capacityPerSup} onChange={e => setCapacityPerSup(Number(e.target.value))} style={{ width: "80px" }} />
+          <input
+            type="number"
+            step="0.1"
+            value={capacityPerSup}
+            onChange={e => setCapacityPerSup(Number(e.target.value))}
+            style={{ width: "80px" }}
+          />
         </div>
 
         {/* MIDDLE */}
@@ -92,28 +127,73 @@ export default function App() {
           {computed.rows.map(r => (
             <div key={r.id} style={{ marginBottom: 8 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <div style={{ width: 120, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}><b>{r.label}</b></div>
+                <div style={{ width: 120, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                  <b>{r.label}</b>
+                </div>
                 <button onClick={() => updateStudents(r.id, r.students - 1)}>{"<"}</button>
-                <input type="range" min="0" max="200" value={r.students} onChange={e => updateStudents(r.id, Number(e.target.value))} style={{ flex: 1 }} />
+                <input
+                  type="range"
+                  min="0"
+                  max="200"
+                  value={r.students}
+                  onChange={e => updateStudents(r.id, Number(e.target.value))}
+                  style={{ flex: 1 }}
+                />
                 <button onClick={() => updateStudents(r.id, r.students + 1)}>{">"}</button>
                 <div style={{ width: 35, textAlign: "right" }}>{r.students}</div>
               </div>
             </div>
           ))}
-          <div style={{ marginTop: 12, fontWeight: "bold" }}>Total Students: {computed.totalStudents}</div>
+
+          {/* NEW TOTALS */}
+          <div style={{ marginTop: 12, fontWeight: "bold" }}>
+            Undergrad Students: {computed.undergradStudents}
+          </div>
+          <div style={{ fontWeight: "bold" }}>
+            Grad Students: {computed.gradStudents}
+          </div>
+          <div style={{ fontWeight: "bold" }}>
+            Total Students: {computed.totalStudents}
+          </div>
         </div>
 
         {/* RIGHT */}
         <div style={{ width: "40%", ...panelStyle }}>
-          <div style={{ fontSize: 16, marginBottom: 4 }}>Number of Faculty: {supervisors}</div>
-          <input type="range" min="1" max="35" value={supervisors} onChange={e => setSupervisors(Number(e.target.value))} />
+          <div style={{ fontSize: 16, marginBottom: 4 }}>
+            Number of Faculty: {supervisors}
+          </div>
+          <input
+            type="range"
+            min="1"
+            max="35"
+            value={supervisors}
+            onChange={e => setSupervisors(Number(e.target.value))}
+          />
 
-          <div style={{ marginTop: 12, fontSize: 14 }}>Credit per course</div>
+          <div style={{ marginTop: 12, fontSize: 14 }}>
+            Credit per course
+          </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6, marginTop: 6 }}>
             {COURSES.map(c => (
               <div key={c.id} style={{ padding: 4, border: "1px solid #c0c0c0", borderRadius: 6 }}>
-                <div style={{ fontSize: 11, width: "100%", overflow: "hidden", textOverflow: "ellipsis" }}>{c.label}</div>
-                <input type="number" max="10" value={courses[c.id].credits} onChange={e => setCourses(prev => ({ ...prev, [c.id]: { ...prev[c.id], credits: Math.min(10, Number(e.target.value)) } }))} style={inputStyle} />
+                <div style={{ fontSize: 11, width: "100%", overflow: "hidden", textOverflow: "ellipsis" }}>
+                  {c.label}
+                </div>
+                <input
+                  type="number"
+                  max="10"
+                  value={courses[c.id].credits}
+                  onChange={e =>
+                    setCourses(prev => ({
+                      ...prev,
+                      [c.id]: {
+                        ...prev[c.id],
+                        credits: Math.min(10, Number(e.target.value))
+                      }
+                    }))
+                  }
+                  style={inputStyle}
+                />
               </div>
             ))}
           </div>
