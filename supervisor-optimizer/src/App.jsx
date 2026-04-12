@@ -1,19 +1,19 @@
 import React, { useState, useMemo } from "react";
 
 const COURSES = [
-  { id: "CSS199", label: "CSS199", ppc: 1 / 50 },
-  { id: "CSS499", label: "CSS499", ppc: 1 / 50 },
-  { id: "497UGR", label: "CSS497UGR", ppc: 1 / 50 },
-  { id: "CSS198", label: "CSS198", ppc: 1 / 100 },
-  { id: "CSS498", label: "CSS498", ppc: 1 / 100 },
-  { id: "497PRJ", label: "CSS497PRJ", ppc: 1 / 100 },
-  { id: "CSS397", label: "CSS397", ppc: 1 / 150 },
-  { id: "CSS495", label: "CSS495", ppc: 1 / 150 },
-  { id: "497INT", label: "CSS497INT", ppc: 1 / 150 },
-  { id: "CSS595", label: "CSS595", ppc: 1/50},
-  { id: "CSS601", label: "CSS601", ppc: 1/150},
-  { id: "CSS600", label: "CSS600", ppc: 1/100},
-  { id: "CSS700", label: "CSS700", ppc: 1/50}
+  { id: "199", label: "CSS199", ppc: 1 / 50 },
+  { id: "499", label: "CSS499", ppc: 1 / 50 },
+  { id: "497UGR", label: "497UGR", ppc: 1 / 50 },
+  { id: "198", label: "CSS198", ppc: 1 / 100 },
+  { id: "498", label: "CSS498", ppc: 1 / 100 },
+  { id: "497PRJ", label: "497PRJ", ppc: 1 / 100 },
+  { id: "397", label: "CSS397", ppc: 1 / 150 },
+  { id: "495", label: "CSS495", ppc: 1 / 150 },
+  { id: "497INT", label: "497INT", ppc: 1 / 150 },
+  { id: "595", label: "CSS595", ppc: 1/50},
+  { id: "601", label: "CSS601", ppc: 1/150},
+  { id: "600", label: "CSS600", ppc: 1/100},
+  { id: "700", label: "CSS700", ppc: 1/50}
 ];
 
 export default function App() {
